@@ -6,6 +6,8 @@ const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
 require('dotenv').config()
+const Movies = require('./models/movieDataSchema.js')
+
 //___________________
 //Port
 //___________________
@@ -33,24 +35,52 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 //___________________
 //Middleware
 //___________________
-
 //use public folder for static assets
 app.use(express.static('public'));
 
 app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
 
 
-//___________________
-// Routes
+//                      ___________________
+//                           Routes
+//                      ___________________
+
+
+                        //Create Route
+app.post('/movierec', (req, res) => {
+  console.log(req)
+   Movies.create(req.body, (err, createdMovie) => {
+     // console.log(req.body)
+     res.json(createdMovie)
+   })
+ })
+ 
+                    //index route/ grabbing all data
+ app.get('/movierec', (req, res) => {
+  Movies.find({}, (err, foundMovie) => {
+     res.json(foundMovie)
+   })
+ })
+ 
+                           //delete route..
+ app.delete('/movierec/:id', (req, res) => {
+  Movies.findByIdAndRemove(req.params.id, (err, deletedMovie) => {
+     res.json(deletedMovie)
+   })
+ })
+ 
+                           //Update route
+ app.put('/movierec/:id', (req, res) => {
+   Movies.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedMovie) => {
+     res.json(updatedMovie)
+   })
+ })
+
+
 //___________________
 //localhost:3000
-app.get('/' , (req, res) => {
-  res.json({
-    test: 'whatever'
-  })
-});
 
 //___________________
 //Listener
 //___________________
-app.listen(PORT, () => console.log( 'Listening on port:', PORT));
+app.listen(PORT, () => console.log( 'Listening on port:', PORT))
