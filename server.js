@@ -50,7 +50,7 @@ app.use(express.json());// returns middleware that only parses JSON - may or may
 app.post('/movierec', (req, res) => {
   console.log(req)
    Movies.create(req.body, (err, createdMovie) => {
-     // console.log(req.body)
+    //  console.log(req.body)
      res.json(createdMovie)
    })
  })
