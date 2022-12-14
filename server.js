@@ -48,34 +48,35 @@ app.use(cors())
 
 
                         //Create Route
-app.post('/', (req, res) => {
-  console.log(req)
-   Movies.create(req.body, (err, createdMovie) => {
-    //  console.log(req.body)
-     res.json(createdMovie)
-   })
- })
- 
-                    //index route/ grabbing all data
- app.get('/', (req, res) => {
-  Movies.find({}, (err, foundMovie) => {
-     res.json(foundMovie)
-   })
- })
- 
-                           //delete route..
- app.delete('/:id', (req, res) => {
-  Movies.findByIdAndRemove(req.params.id, (err, deletedMovie) => {
-     res.json(deletedMovie)
-   })
- })
- 
-                           //Update route
- app.put('/:id', (req, res) => {
-   Movies.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedMovie) => {
-     res.json(updatedMovie)
-   })
- })
+                        app.post('/movierec', (req, res) => {
+                          console.log(req)
+                           Movies.create(req.body, (err, createdMovie) => {
+                            //  console.log(req.body)
+                             res.json(createdMovie)
+                           })
+                         })
+                         
+                                            //index route/ grabbing all data
+                         app.get('/movierec', (req, res) => {
+                          Movies.find({}, (err, foundMovie) => {
+                             res.json(foundMovie)
+                           })
+                         })
+                         
+                                                   //delete route..
+                         app.delete('/movierec/:id', (req, res) => {
+                          Movies.findByIdAndRemove(req.params.id, (err, deletedMovie) => {
+                             res.json(deletedMovie)
+                           })
+                         })
+                         
+                                                   //Update route
+                         app.put('/movierec/:id', (req, res) => {
+                           Movies.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedMovie) => {
+                             res.json(updatedMovie)
+                           })
+                         })
+                        
 
 
 //___________________
