@@ -36,6 +36,7 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 //___________________
 //Middleware
 //___________________
+
 //use public folder for static assets
 app.use(express.static('public'));
 
